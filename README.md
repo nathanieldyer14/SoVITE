@@ -4,7 +4,7 @@ This script uses an SRT subtitle/caption file to speed up a corresponding mp4 to
 This is most useful for watching videos, particularly slow-paced Soviet/foreign films, quickly without skipping anything while keeping dialog understandable / subtitles readable.
 
 # Project Name Explanation
-"vite" => "fast" in French
+"vite" => "fast"/"quickly" in French
 
 "So VITE" => "So FAST"
 
