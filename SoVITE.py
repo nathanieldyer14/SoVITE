@@ -20,8 +20,8 @@ def speed_up_mp4(title=None, mp4_input=None, srt_input=None, subtitle_offset=0, 
     :param int subtitle_offset: The number of seconds faster the mp4 is than the subtitles. Default: 0
     :param subtitle_speed: The speedup factor for dialog/subtitle scenes. Default: 1.5
     :type subtitle_speed: int or float
-    :param subtitle_speed: The speedup factor for non-dialog/non-subtitle scenes. Default: 3
-    :type subtitle_speed: int or float
+    :param non_subtitle_speed: The speedup factor for non-dialog/non-subtitle scenes. Default: 3
+    :type non_subtitle_speed: int or float
     :param resolution: The desired output mp4 resolution as a tuple of ints. Default: (640,360)
     :type resolution: (int,int)
     :param int fps: The desired output mp4 frames per second. Default: 25
@@ -59,7 +59,7 @@ def speed_up_mp4(title=None, mp4_input=None, srt_input=None, subtitle_offset=0, 
         last_end = subtitle.end
     clips.append(clip.subclipped(str(last_end.total_seconds()), clip.duration).with_speed_scaled(non_subtitle_speed))  # Remaining normal-speed segment
     final_clip = concatenate_videoclips(clips, method="compose")
-    final_clip.write_videofile(mp4_output, fps=fps, threads=threads)
+    final_clip.write_videofile(mp4_output, fps=fps, threads=threads) # , ffmpeg_params = ["-filter:a", "atempo=2.0"] could fix sped up audio pitch
     
     
 def speed_up_srt(srt_input, subtitle_offset=0, subtitle_speed=SUBTITLE_SPEED, non_subtitle_speed=NON_SUBTITLE_SPEED, srt_output=None):
@@ -124,8 +124,8 @@ def speed_up_both(title=None, mp4_input=None, srt_input=None, subtitle_offset=0,
     :param int subtitle_offset: The number of seconds faster the mp4 is than the subtitles. Default: 0
     :param subtitle_speed: The speedup factor for dialog/subtitle scenes. Default: 1.5
     :type subtitle_speed: int or float
-    :param subtitle_speed: The speedup factor for non-dialog/non-subtitle scenes. Default: 3
-    :type subtitle_speed: int or float
+    :param non_subtitle_speed: The speedup factor for non-dialog/non-subtitle scenes. Default: 3
+    :type non_subtitle_speed: int or float
     :param resolution: The desired output mp4 resolution as a tuple of ints. Default: (640,360)
     :type resolution: (int,int)
     :param int fps: The desired output mp4 frames per second. Default: 25
